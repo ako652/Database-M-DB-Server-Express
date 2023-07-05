@@ -6,8 +6,10 @@
 2. Step 2: yarn start
 
 ## Requirements
+express/mongoDB/react/NodeJs
 
 1. Create a server in `app.ts`
+
 2. Connect to database in `server.ts`
 3. Create a product route to create product in database
 4. Create a product route to get product list from database
