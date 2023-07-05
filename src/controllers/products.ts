@@ -1,7 +1,9 @@
+
+import { createProductService , getAllProducts, getProductById} from './../services/products';
 // product controller
 import {Request, Response} from 'express'
 import Product from '../models/Product'
-import productServices from '../services/products'
+
 
 
 export const createProducts=async (req:Request, res:Response)=>{
@@ -9,9 +11,34 @@ export const createProducts=async (req:Request, res:Response)=>{
         title:req.body.title,
         price:req.body.price
     })
-   const product =await productServices.createProductService(
-    productInformation
-   )
+   try {
+    const product = await createProductService(productInformation);
 
+    res.status(200).json(product);
+    
+   } catch (error) {
+    res.status(500).json('error')
+    
+   }
+}
+
+export const getProductList=async(req:Request, res:Response)=>{
+    try {
+        const productList=await getAllProducts()
+        res.status(200).json(productList)
+    } catch (error) {
+        res.status(500).json({error: error})
+    }
+}
+
+export const productById=async(req:Request, res:Response)=>{
+
+ try {
+    const productId=req.params.id
+    const product =await getProductById(productId)
     res.status(200).json(product)
+
+ } catch (error) {
+    res.status(500).json({error:error})
+ }
 }
